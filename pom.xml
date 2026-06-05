@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  pom.xml  ("Project Object Model")
+
+  É o arquivo central de um projeto Maven. Equivale ao composer.json (PHP) ou
+  ao pyproject.toml/requirements.txt (Python): declara dependências, versão da
+  linguagem e como o projeto é compilado e empacotado num .jar executável.
+  ============================================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+      "parent": herdamos do Spring Boot um conjunto enorme de versões de
+      bibliotecas já testadas e compatíveis entre si (dependency management).
+      Assim não precisamos definir a versão de cada lib individualmente.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <!-- Identificação do nosso artefato (grupo + nome + versão). -->
+    <groupId>com.bolt</groupId>
+    <artifactId>clientes</artifactId>
+    <version>1.0.0</version>
+    <name>desafio-clientes</name>
+    <description>API REST de cadastro de clientes - Desafio Tecnico Grupo Bolt</description>
+
+    <properties>
+        <!-- Exigência do desafio: Java 17+. -->
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <!--
+          starter-web: traz o Spring MVC + servidor Tomcat embarcado.
+          É o que permite expor endpoints REST (@RestController).
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+          starter-data-jpa: JPA/Hibernate. Mapeia objetos Java para tabelas do
+          banco (ORM), parecido com Eloquent (Laravel) ou SQLAlchemy (Python).
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--
+          starter-validation: Bean Validation (anotações @NotBlank, @NotNull...).
+          Valida automaticamente os dados que chegam nas requisições.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!--
+          H2: banco de dados em memória (embarcado). Sobe junto com a aplicação,
+          sem precisar instalar nada. Ideal para o desafio.
+        -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--
+          springdoc-openapi: gera a documentação Swagger/OpenAPI automaticamente
+          a partir dos controllers. Diferencial do desafio.
+        -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
+
+        <!--
+          starter-test: JUnit 5 + Mockito + AssertJ + MockMvc.
+          Stack padrão de testes do Spring. Só usado em tempo de teste.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+              Plugin que empacota tudo num .jar executável e habilita o
+              comando "mvn spring-boot:run" para rodar a aplicação.
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

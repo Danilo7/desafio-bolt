@@ -1,0 +1,18 @@
+# ---- Build do Maven ----
+target/
+*.jar
+*.war
+
+# ---- IDEs ----
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# ---- Sistema operacional ----
+.DS_Store
+
+# ---- Logs ----
+*.log

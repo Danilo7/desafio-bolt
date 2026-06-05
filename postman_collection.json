@@ -1,0 +1,79 @@
+{
+  "info": {
+    "name": "Desafio Bolt - API de Clientes",
+    "description": "Coleção com todas as requisições da API de cadastro de clientes (porta 8082). Use a variável {{baseUrl}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8082"
+    }
+  ],
+  "item": [
+    {
+      "name": "Cadastrar cliente (MG - publica evento)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/clientes", "host": ["{{baseUrl}}"], "path": ["api", "clientes"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Maria Silva\",\n  \"documento\": \"12345678900\",\n  \"endereco\": {\n    \"cep\": \"30130-010\",\n    \"numero\": \"1500\",\n    \"complemento\": \"Apto 302\"\n  },\n  \"unidadesConsumidoras\": [\n    {\n      \"nome\": \"Minha casa\",\n      \"numeroInstalacao\": \"INST-0001\",\n      \"endereco\": {\n        \"cep\": \"30130-010\",\n        \"numero\": \"1500\"\n      }\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Cadastrar cliente (SP - deve falhar 422)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/clientes", "host": ["{{baseUrl}}"], "path": ["api", "clientes"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Joao Souza\",\n  \"documento\": \"99999999900\",\n  \"endereco\": {\n    \"cep\": \"01310-100\",\n    \"numero\": \"200\"\n  },\n  \"unidadesConsumidoras\": [\n    {\n      \"nome\": \"Meu comercio\",\n      \"numeroInstalacao\": \"INST-9999\",\n      \"endereco\": {\n        \"cep\": \"01310-100\",\n        \"numero\": \"200\"\n      }\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Listar todos os clientes",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/clientes", "host": ["{{baseUrl}}"], "path": ["api", "clientes"] }
+      }
+    },
+    {
+      "name": "Listar ultimos 20 (ordem decrescente)",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/clientes/ultimos", "host": ["{{baseUrl}}"], "path": ["api", "clientes", "ultimos"] }
+      }
+    },
+    {
+      "name": "Obter cliente por ID",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/clientes/1", "host": ["{{baseUrl}}"], "path": ["api", "clientes", "1"] }
+      }
+    },
+    {
+      "name": "Atualizar cliente",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/api/clientes/1", "host": ["{{baseUrl}}"], "path": ["api", "clientes", "1"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Maria Silva Atualizada\",\n  \"documento\": \"12345678900\",\n  \"endereco\": {\n    \"cep\": \"30130-010\",\n    \"numero\": \"1600\"\n  },\n  \"unidadesConsumidoras\": [\n    {\n      \"nome\": \"Minha casa nova\",\n      \"numeroInstalacao\": \"INST-0001\",\n      \"endereco\": {\n        \"cep\": \"30130-010\",\n        \"numero\": \"1600\"\n      }\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "Deletar cliente (remocao logica)",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/api/clientes/1", "host": ["{{baseUrl}}"], "path": ["api", "clientes", "1"] }
+      }
+    }
+  ]
+}

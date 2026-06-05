@@ -1,0 +1,14 @@
+# ============================================================================
+# docker-compose: sobe a aplicação com um único comando (docker compose up).
+#
+# Como usamos H2 em memória (embarcado), não há serviço de banco separado:
+# basta o serviço da aplicação. Caso futuramente troque por Postgres/MySQL,
+# bastaria adicionar um serviço de banco aqui e ligar pela rede do compose.
+# ============================================================================
+services:
+  app:
+    build: .                 # constrói a imagem a partir do Dockerfile local
+    container_name: desafio-clientes
+    ports:
+      - "8082:8082"          # mapeia a porta do contêiner para a máquina host
+    restart: unless-stopped
